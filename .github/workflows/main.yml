@@ -25,4 +25,4 @@ jobs:
 
       - name: Build frontend
         working-directory: frontend
-        run: npm run build
+        run: npx react-scripts build
