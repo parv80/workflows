@@ -29,6 +29,4 @@ jobs:
 
       - name: 🏗️ Build Frontend for Production
         working-directory: ./frontend
-        run: |
-          chmod +x node_modules/.bin/react-scripts
-          npm run build
+        run: npm run build
