@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    container_name: backend_lib
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=development
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_lib
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
