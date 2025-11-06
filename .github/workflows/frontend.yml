@@ -1,32 +1,38 @@
-name: Deploy React Frontend to GitHub Pages
+name: Node + React CI
 
 on:
   push:
     branches: ["main"]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: ✅ Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: 🧠 Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
 
-      - name: Install Frontend Dependencies
-        working-directory: ./frontend
-        run: npm install --force
+      # -------- BACKEND -----------
+      - name: 📦 Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
 
-      - name: Build Frontend
+      - name: 🔍 Backend Lint Check (Optional)
+        working-directory: ./backend
+        run: npm run lint --if-present
+
+      # -------- FRONTEND -----------
+      - name: 📦 Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: 🏗️ Build Frontend for Production
         working-directory: ./frontend
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages        # The branch GitHub Pages will use
-          folder: frontend/build  # The build output folder
