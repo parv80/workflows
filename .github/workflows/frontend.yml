@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          folder: frontend/build
+          branch: gh-pages        # The branch GitHub Pages will use
+          folder: frontend/build  # The build output folder
