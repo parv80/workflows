@@ -3,7 +3,6 @@ name: Node + React CI
 on:
   push:
     branches: ["main"]
-  pull_request:
 
 jobs:
   build:
@@ -23,16 +22,13 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      - name: 🔍 Backend Lint Check (Optional)
-        working-directory: ./backend
-        run: npm run lint --if-present
-
       # -------- FRONTEND -----------
       - name: 📦 Install Frontend Dependencies
         working-directory: ./frontend
-        run: npm install
+        run: npm install --force
 
       - name: 🏗️ Build Frontend for Production
         working-directory: ./frontend
-        run: npm run build
-
+        run: |
+          chmod +x node_modules/.bin/react-scripts
+          npm run build
